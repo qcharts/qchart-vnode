@@ -1,0 +1,2 @@
+class vnode {}
+export { vnode }

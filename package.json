@@ -1,0 +1,32 @@
+{
+  "name": "@qcharts/vnode",
+  "version": "0.0.1",
+  "description": "@qcharts/vnode",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf lib && webpack --config webpack.production.js",
+    "prepublishOnly": "npm run build",
+    "test": "npm run test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.9.0",
+    "lerna": "^3.16.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qcharts/vnode.git"
+  },
+  "keywords": [
+    "qcharts",
+    "gl"
+  ],
+  "author": "yaotaiyang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qcharts/vnode/issues"
+  },
+  "homepage": "https://github.com/qcharts/vnode"
+}
