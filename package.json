@@ -8,12 +8,15 @@
     "prepublishOnly": "npm run build",
     "test": "npm run test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@qcharts/core": "^0.2.23",
+    "@qcharts/dataset": "^0.0.1"
+  },
   "devDependencies": {
+    "lerna": "^3.16.4",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.9.0",
-    "lerna": "^3.16.4"
+    "webpack-dev-server": "^3.9.0"
   },
   "repository": {
     "type": "git",
