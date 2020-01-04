@@ -29,7 +29,7 @@ export function render(children, parent) {
   if (!children) {
     return
   }
-
+  
   invariant(parent, `In vnode, need a parent to render elements!`)
 
   children
