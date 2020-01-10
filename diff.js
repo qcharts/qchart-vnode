@@ -6,12 +6,10 @@ const diffVNodeChildren = (oldVNode, newVNode) => {
   const patches = []
   // 新旧节点的子节点长度可能不一样，但是进行比对的次数应当为最长子节点数目
   const len = Math.max(oldVNode.children.length, newVNode.children.length)
-
   for (let i = 0; i < len; i++) {
     // 注意：这里不使用 patches.push ，是为了保持 子节点 在整个节点树的位置是不变的
     patches[i] = diff(oldVNode.children[i], newVNode.children[i])
   }
-
   return patches
 }
 
@@ -43,11 +41,7 @@ const diffVNodeAttrs = (oldVNode, newVNode) => {
  * @param {*} newVNode
  */
 const isDiffrentVNode = (oldVNode, newVNode) => {
-  return (
-    (typeof oldVNode !== 'object' && oldVNode !== newVNode) ||
-    (typeof newVNode !== 'object' && oldVNode !== newVNode) ||
-    oldVNode.tagName !== newVNode.tagName
-  )
+  return (typeof oldVNode !== 'object' && oldVNode !== newVNode) || (typeof newVNode !== 'object' && oldVNode !== newVNode) || oldVNode.tagName !== newVNode.tagName
 }
 
 /**
@@ -63,15 +57,12 @@ export default function diff(oldVNode, newVNode) {
   if (isNull(oldVNode)) {
     return { type: CREATE, newVNode }
   }
-
   if (isNull(newVNode)) {
     return { type: REMOVE }
   }
-
   if (isDiffrentVNode(oldVNode, newVNode)) {
     return { type: REPLACE, newVNode }
   }
-
   if (newVNode.tagName) {
     return {
       type: UPDATE,

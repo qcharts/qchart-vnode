@@ -2,77 +2,52 @@ import { CREATE, REPLACE, UPDATE, REMOVE } from './consts'
 import { createElement } from './render'
 import { delegateEvent, resolveStyle, animate, applyRef } from './nodeHelper'
 
-const patchAttrs = (el, patches) => {
+const patchAttrs = (el, patche) => {
   if (!el) {
     return
   }
-
-  if (!Object.keys(patches).length) {
+  if (!Object.keys(patche).length) {
     return
   }
-
-  applyRef(el, patches)
-  resolveStyle(el, patches)
-  delegateEvent(el, patches)
-  el.attr(patches)
-  animate(el, patches)
+  // applyRef(el, patche)
+  // resolveStyle(el, patche)
+  // delegateEvent(el, patche)
+  el.attr(patche)
+  //animate(el, patche)
 }
-
-let count = 0
-
 /**
  * @param {*} parent
  * @param {*} patches
  * @param {*} index
  */
-export default function patch(parent, patches, index = 0, isRoot = false) {
-  if (!patches || !parent || !parent.childNodes) {
+export default function patch(parent, patche, i = 0) {
+  if (!patche || !parent) {
     return
   }
-
-  let el = isRoot
-    ? parent
-    : parent.childNodes[index - count] || parent.childNodes[0]
-
   /* eslint-disable indent */
-  switch (patches.type) {
+  switch (patche.type) {
     case CREATE: {
-      const { newVNode } = patches
-
-      // if (newVNode) {
+      const { newVNode } = patche
       const newEl = createElement(newVNode)
       newEl && parent.appendChild(newEl)
-      // } else {
-      count++
-      // }
       break
     }
-
     case REPLACE: {
-      const { newVNode } = patches
+      const { newVNode } = patche
       const newEl = createElement(newVNode)
       parent.replaceChild(newEl, el)
-      count--
       break
     }
-
     case REMOVE: {
-      el.parent.removeChild(el)
-      count++
-
+      parent.children[i].remove()
       break
     }
-
     case UPDATE: {
-      const { attrs, children } = patches
-      patchAttrs(el, attrs)
-
+      const { attrs, children } = patche
+      patchAttrs(parent.children[i], attrs)
       for (let i = 0, len = children.length; i < len; i++) {
-        patch(el, children[i], i)
+        patch(parent, children[i], i)
       }
-
-      count = 0
-
       break
     }
   }

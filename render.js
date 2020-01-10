@@ -9,11 +9,11 @@ export function createElement(vnode) {
   let { tagName: TagName, attrs, children } = vnode
   const el = new TagName()
 
-  applyRef(el, attrs)
-  resolveStyle(el, attrs)
-  delegateEvent(el, attrs)
+  // applyRef(el, attrs)
+  // resolveStyle(el, attrs)
+  // delegateEvent(el, attrs)
   el.attr(attrs)
-  animate(el, attrs)
+  //animate(el, attrs)
 
   if (el.appendChild) {
     children
@@ -29,7 +29,7 @@ export function render(children, parent) {
   if (!children) {
     return
   }
-  
+
   invariant(parent, `In vnode, need a parent to render elements!`)
 
   children
