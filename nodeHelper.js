@@ -16,15 +16,7 @@ export function animate(el, attrs) {
     useTween: false,
     ...attrs.animation
   }
-  const {
-    from,
-    middle,
-    to,
-    delay,
-    duration,
-    useTween,
-    attrFormatter = d => d
-  } = animation
+  const { from, middle, to, delay, duration, useTween, attrFormatter = d => d } = animation
 
   if (!from || !to) {
     return
@@ -139,16 +131,12 @@ export function resolveStyle(el, attrs) {
  * @param {*} el
  * @param {*} attrs
  */
-export function applyRef(el, attrs) {
+export function applyRef(graph, el, attrs) {
   const ref = attrs.ref
   delete attrs.ref
-
-  if (ref) {
-  }
-
   if (ref && el) {
     try {
-      ref(el, attrs)
+      graph.addRef(ref, el)
     } catch (e) {
       console.error(e)
     }
@@ -160,16 +148,15 @@ export function applyRef(el, attrs) {
  * @param {*} el
  * @param {*} attrs
  */
-export function delegateEvent(el, attrs = {}) {
+export function addEvent(el, attrs = {}) {
   Object.keys(attrs).forEach(key => {
-    if (!/^on/.test(key)) {
+    if (!/^@/.test(key)) {
       return
     }
-
-    const type = key.split('on')[1].toLowerCase()
+    const type = key.split('@')[1].toLowerCase()
     const cb = attrs[key] || (() => {})
     el.off(type)
-    el.on(type, evt => cb(evt, el))
+    el.on(type, evt => cb.bind(el)(evt))
     delete attrs[key]
   })
 }

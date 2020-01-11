@@ -1,39 +1,18 @@
-import { invariant } from './util'
-import { delegateEvent, resolveStyle, animate, applyRef } from './nodeHelper'
-
+import { patchAttrs } from './patch'
 export function createElement(vnode) {
   if (!vnode) {
     return
   }
-
+  //当前图形通过绑定this传递进来
+  let graph = this
   let { tagName: TagName, attrs, children } = vnode
   const el = new TagName()
-
-  // applyRef(el, attrs)
-  // resolveStyle(el, attrs)
-  // delegateEvent(el, attrs)
-  el.attr(attrs)
-  //animate(el, attrs)
-
+  patchAttrs(graph, el, attrs)
   if (el.appendChild) {
     children
-      .map(createElement)
+      .map(createElement.bind(this))
       .filter(Boolean)
       .forEach(el.appendChild.bind(el))
   }
-
   return el
-}
-
-export function render(children, parent) {
-  if (!children) {
-    return
-  }
-
-  invariant(parent, `In vnode, need a parent to render elements!`)
-
-  children
-    .filter(Boolean)
-    .map(createElement)
-    .forEach(el => parent.appendChild(el))
 }
