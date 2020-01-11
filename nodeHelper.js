@@ -1,21 +1,22 @@
 import { Tween } from './tween'
+import { deepObjectMerge } from '@qcharts/utils'
 
 /**
  * 为 spritejs 元素添加动画
  * @param {*} el
  * @param {*} attrs
  */
-export function animate(el, attrs) {
+export function addAnimate(graph, el, attrs) {
   if (!el || !attrs.animation) {
     return
   }
-
-  const animation = {
-    delay: 0,
-    duration: 300,
-    useTween: false,
-    ...attrs.animation
-  }
+  const animation = deepObjectMerge(graph.renderAttrs.animation, attrs.animation)
+  // const animation = {
+  //   delay: 0,
+  //   duration: 300,
+  //   useTween: false,
+  //   ...attrs.animation
+  // }
   const { from, middle, to, delay, duration, useTween, attrFormatter = d => d } = animation
 
   if (!from || !to) {

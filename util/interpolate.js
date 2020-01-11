@@ -1,4 +1,4 @@
-import { isArray, isObject } from './is'
+import { jsType } from '@qcharts/utils'
 
 const constant = x => () => x
 const number = (a, b) => t => a + (b - a) * t
@@ -30,11 +30,11 @@ const object = (a, b) => {
   let c = {}
   let k
 
-  if (!a || !isObject(a)) {
+  if (!a || !jsType(a) === 'object') {
     a = {}
   }
 
-  if (!b || !isObject(b)) {
+  if (!b || !jsType(b) === 'object') {
     b = {}
   }
 
@@ -57,6 +57,5 @@ const object = (a, b) => {
 
 export default function interpolate(a, b) {
   let type = typeof b
-
-  return b === null || type === 'string' || type === 'boolean' ? constant(b) : (type === 'number' ? number : isArray(b) ? array : object)(a, b)
+  return b === null || type === 'string' || type === 'boolean' ? constant(b) : (type === 'number' ? number : jsType(b) === 'array' ? array : object)(a, b)
 }

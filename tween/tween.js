@@ -1,13 +1,13 @@
 import { interpolate, delay, now, requestAnimationFrame, cancelAnimationFrame } from '../util'
-
-function Tween(val) {
-  this._start = val
+import easing from './easing'
+function Tween(name = 'linear') {
+  this._start = null
   this._end = null
   this._delay = 0
 
   this._canceled = false
   this._duration = 1
-  this._easing = k => k
+  this._easing = easing[name] ? easing[name] : easing.linear
 
   this._onUpdate = () => {}
   this._onStart = () => {}
@@ -23,7 +23,6 @@ Tween.prototype = {
 
   to(val) {
     this._end = val
-
     return this
   },
 
@@ -31,7 +30,6 @@ Tween.prototype = {
     if (typeof time !== 'number') {
       throw new Error('Duration time must be a number')
     }
-
     this._duration = time
     return this
   },
@@ -45,9 +43,7 @@ Tween.prototype = {
     if (typeof fn !== 'function') {
       throw new Error('easing function must be a function')
     }
-
     this._easing = fn
-
     return this
   },
 
@@ -55,9 +51,7 @@ Tween.prototype = {
     if (typeof fn !== 'function') {
       throw new Error('start callback must be a function')
     }
-
     this._onStart = fn
-
     return this
   },
 
@@ -65,9 +59,7 @@ Tween.prototype = {
     if (typeof fn !== 'function') {
       throw new Error('update callback must be a function')
     }
-
     this._onUpdate = fn
-
     return this
   },
 
@@ -75,9 +67,7 @@ Tween.prototype = {
     if (typeof fn !== 'function') {
       throw new Error('complete callback must be a function')
     }
-
     this._onComplete = fn
-
     return this
   },
   start() {
@@ -95,7 +85,6 @@ Tween.prototype = {
       const step = () => {
         elapseTime = now() - startTime
         const t = e(Math.min(1.0, elapseTime / animateTime))
-
         if (elapseTime >= animateTime) {
           callback(i(1))
           resolve(this)

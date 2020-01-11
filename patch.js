@@ -1,6 +1,6 @@
 import { CREATE, REPLACE, UPDATE, REMOVE } from './consts'
 import { createElement } from './render'
-import { addEvent, resolveStyle, animate, applyRef } from './nodeHelper'
+import { addEvent, resolveStyle, addAnimate, applyRef } from './nodeHelper'
 
 export function patchAttrs(graph, el, patche) {
   if (!el) {
@@ -13,7 +13,7 @@ export function patchAttrs(graph, el, patche) {
   // resolveStyle(el, patche)
   addEvent(el, patche)
   el.attr(patche)
-  //animate(el, patche)
+  addAnimate(graph, el, patche)
 }
 
 /**

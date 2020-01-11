@@ -9,8 +9,7 @@
     "test": "npm run test"
   },
   "dependencies": {
-    "@qcharts/core": "^0.2.23",
-    "@qcharts/dataset": "^0.0.1"
+    "@qcharts/utils": "^0.0.1"
   },
   "devDependencies": {
     "lerna": "^3.16.4",
