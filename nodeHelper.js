@@ -50,23 +50,19 @@ export function addAnimate(graph, el, attrs) {
         .delay(delay)
         .duration(duration)
         .onUpdate(attr => {
-          // console.log(attr)
-          // if (attr.text) {
-          //   console.log(attr.text)
-          // }
           el.attr(attrFormatter(attr))
         })
         .start()
     }
   }
+  setAnimation()
+  // if (!el.parent) {
+  //   el.on('append', () => {
+  //     setAnimation()
+  //   })
+  // } else {
 
-  if (!el.parent) {
-    el.on('append', () => {
-      setAnimation()
-    })
-  } else {
-    setAnimation()
-  }
+  // }
 }
 
 /**
@@ -76,7 +72,7 @@ export function addAnimate(graph, el, attrs) {
  * @param {*} el
  * @param {*} attrs
  */
-export function resolveStyle(el, attrs) {
+export function addState(el, attrs) {
   const normal = Object.create(null)
   let cloneNode = null
 
