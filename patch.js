@@ -47,8 +47,8 @@ export default function patch(parent, patche, i = 0) {
     case UPDATE: {
       const { attrs, children } = patche
       patchAttrs(graph, parent.children[i], attrs)
-      for (let i = 0, len = children.length; i < len; i++) {
-        patch.bind(graph)(parent.children[i], children[i], i)
+      for (let j = 0, len = children.length; j < len; j++) {
+        patch.bind(graph)(parent.children[i], children[j], j)
       }
       break
     }
