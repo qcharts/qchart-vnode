@@ -1,5 +1,6 @@
 import { Tween } from './tween'
 import { deepObjectMerge } from '@qcharts/utils'
+import filterClone from 'filter-clone'
 
 /**
  * 为 spritejs 元素添加动画
@@ -17,15 +18,14 @@ export function addAnimate(graph, el, attrs) {
   //   useTween: false,
   //   ...attrs.animation
   // }
-  const { from, middle, to, delay, duration, useTween, attrFormatter = d => d } = animation
 
-  if (!from || !to) {
+  const { from, middle, use, to, delay, duration, useTween, formatter = d => d } = animation
+
+  if (!from || !to || !use) {
     return
   }
 
-  delete animation.from
-  delete animation.to
-  delete animation.attrFormatter
+  let ani = filterClone(animation, null, ['from', 'to', 'formatter', 'use'])
 
   const setAnimation = () => {
     if (!useTween) {
@@ -36,9 +36,8 @@ export function addAnimate(graph, el, attrs) {
         keys = [from, to]
       }
       el.animate(keys, {
-        easing: 'ease-in-out',
         fill: 'both',
-        ...animation
+        ...ani
       }).finished.then(() => {
         delete to.offset
         el.attr(to)
@@ -50,7 +49,7 @@ export function addAnimate(graph, el, attrs) {
         .delay(delay)
         .duration(duration)
         .onUpdate(attr => {
-          el.attr(attrFormatter(attr))
+          el.attr(formatter(attr))
         })
         .start()
     }
