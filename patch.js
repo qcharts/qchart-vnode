@@ -1,6 +1,6 @@
 import { CREATE, REPLACE, UPDATE, REMOVE } from './consts'
 import { createElement } from './render'
-import { addEvent, addState, addAnimate, applyRef } from './nodeHelper'
+import { addEvent, addState, addAnimate, addRef } from './nodeHelper'
 
 export function patchAttrs(graph, el, patche) {
   if (!el) {
@@ -9,7 +9,7 @@ export function patchAttrs(graph, el, patche) {
   if (!Object.keys(patche).length) {
     return
   }
-  applyRef(graph, el, patche)
+  addRef(graph, el, patche)
   addState(el, patche)
   addEvent(el, patche)
   el.attr(patche)
@@ -49,7 +49,7 @@ export default function patch(parent, patche, num = 0) {
       const { attrs, children } = patche
       let curNode = parent.children[i]
       patchAttrs(graph, curNode, attrs)
-      //从大到小开始处理，防止i变化
+      //从大到小开始处理，防止remove时i变化
       for (let j = children.length - 1; j >= 0; j--) {
         patch.bind(graph)(curNode, children[j], j)
       }

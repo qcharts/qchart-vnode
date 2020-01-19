@@ -128,7 +128,7 @@ export function addState(el, attrs) {
  * @param {*} el
  * @param {*} attrs
  */
-export function applyRef(graph, el, attrs) {
+export function addRef(graph, el, attrs) {
   const ref = attrs.ref
   delete attrs.ref
   if (ref && el) {
