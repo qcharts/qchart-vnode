@@ -21,8 +21,9 @@ export function patchAttrs(graph, el, patche) {
  * @param {*} patches
  * @param {*} index
  */
-export default function patch(parent, patche, i = 0) {
+export default function patch(parent, patche, num = 0) {
   //core中调用patch的时候，base中处理绑定this到当前图表
+  let i = num
   let graph = this
   if (!patche || !parent) {
     return
@@ -41,14 +42,19 @@ export default function patch(parent, patche, i = 0) {
       break
     }
     case REMOVE: {
-      parent.children[i].remove()
+      parent.children[i] && parent.children[i].remove()
       break
     }
     case UPDATE: {
       const { attrs, children } = patche
-      patchAttrs(graph, parent.children[i], attrs)
-      for (let j = 0, len = children.length; j < len; j++) {
-        patch.bind(graph)(parent.children[i], children[j], j)
+      let curNode = parent.children[i]
+      patchAttrs(graph, curNode, attrs)
+      //从大到小开始处理，防止i变化
+      for (let j = children.length - 1; j >= 0; j--) {
+        patch.bind(graph)(curNode, children[j], j)
+      }
+      for (let m = parent.children.length - children.length; m >= 0; m--) {
+        patch.bind(graph)(curNode, children[m], m)
       }
       break
     }
