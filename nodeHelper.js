@@ -55,13 +55,6 @@ export function addAnimate(graph, el, attrs) {
     }
   }
   setAnimation()
-  // if (!el.parent) {
-  //   el.on('append', () => {
-  //     setAnimation()
-  //   })
-  // } else {
-
-  // }
 }
 
 /**

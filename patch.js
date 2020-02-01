@@ -2,7 +2,7 @@ import { CREATE, REPLACE, UPDATE, REMOVE } from './consts'
 import { createElement } from './render'
 import { addEvent, addState, addAnimate, addRef } from './nodeHelper'
 
-export function patchAttrs(graph, el, patche) {
+export function patchAttrs (graph, el, patche) {
   if (!el) {
     return
   }
@@ -21,7 +21,7 @@ export function patchAttrs(graph, el, patche) {
  * @param {*} patches
  * @param {*} index
  */
-export default function patch(parent, patche, num = 0) {
+export default function patch (parent, patche, num = 0) {
   //core中调用patch的时候，base中处理绑定this到当前图表
   let i = num
   let graph = this
@@ -47,14 +47,18 @@ export default function patch(parent, patche, num = 0) {
     }
     case UPDATE: {
       const { attrs, children } = patche
-      let curNode = parent.children[i]
+      //对应的dom与vnode打上对应的ind，防止remove与create的时候变动i
+      parent.children.forEach((child, ind) => {
+        child._ind = ind;
+      })
+      children.forEach((child, ind) => {
+        child._ind = ind;
+      })
+      let curNode = parent.children.filter(child => child._ind === i)[0]
       patchAttrs(graph, curNode, attrs)
-      //从大到小开始处理，防止remove时i变化,同一个children中，只会出现create或者remove两种情况中的一种
-      for (let j = children.length - 1; j >= 0; j--) {
-        patch.bind(graph)(curNode, children[j], j)
-      }
-      for (let m = parent.children.length - children.length; m >= 0; m--) {
-        patch.bind(graph)(curNode, children[m], m)
+      let len = children.length > parent.children.length ? children.length : parent.children.length
+      for (let j = 0; j < len; j++) {
+        patch.bind(graph)(curNode, children.filter(child => child._ind === j)[0], j)
       }
       break
     }
