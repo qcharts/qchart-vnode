@@ -1,4 +1,4 @@
-import { Tween } from './tween'
+import { Tween } from '../tween'
 import { deepObjectMerge } from '@qcharts/utils'
 import filterClone from 'filter-clone'
 

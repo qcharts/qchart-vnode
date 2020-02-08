@@ -2,10 +2,11 @@
   "name": "@qcharts/vnode",
   "version": "0.0.1",
   "description": "@qcharts/vnode",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "rimraf lib && webpack --config webpack.production.js",
     "prepublishOnly": "npm run build",
+    "pub": "npm publish --access public",
     "test": "npm run test"
   },
   "dependencies": {
