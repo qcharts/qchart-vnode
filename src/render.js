@@ -7,6 +7,7 @@ export function createElement(vnode) {
   let graph = this
   let { tagName: TagName, attrs, children } = vnode
   const el = new TagName()
+  //渲染的spritejs对象放到 visual或者plugin上
   patchAttrs(graph, el, attrs)
   if (el.appendChild) {
     children
