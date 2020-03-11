@@ -42,8 +42,8 @@ export default function patch($el, patche, isRoot = 0) {
     }
     case REPLACE: {
       const { newVNode } = patche
-      const newEl = createElement(newVNode)
-      $el.replaceChild(newEl, el)
+      const newEl = createElement.bind(graph)(newVNode)
+      $el.parent.replaceChild(newEl, $el)
       break
     }
     case REMOVE: {
