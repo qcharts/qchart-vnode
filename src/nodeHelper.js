@@ -137,15 +137,15 @@ export function addRef(graph, el, attrs) {
  * @param {*} el
  * @param {*} attrs
  */
-export function addEvent(el, attrs = {}) {
+export function addEvent(graph, el, attrs = {}) {
   Object.keys(attrs).forEach(key => {
-    if (!/^@/.test(key)) {
+    if (!/^on/.test(key)) {
       return
     }
-    const type = key.split('@')[1].toLowerCase()
+    const type = key.split('on')[1].toLowerCase()
     const cb = attrs[key] || (() => {})
-    el.off(type)
-    el.on(type, evt => cb.bind(el)(evt))
+    el.removeEventListener(type, cb)
+    el.addEventListener(type, evt => cb.call(graph, evt, el))
     delete attrs[key]
   })
 }
