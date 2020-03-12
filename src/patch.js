@@ -10,7 +10,7 @@ export function patchAttrs(graph, el, patche) {
     return
   }
   addRef(graph, el, patche)
-  addState(el, patche)
+  //addState(el, patche)
   addEvent(graph, el, patche)
   el.attr(patche)
   addAnimate(graph, el, patche)

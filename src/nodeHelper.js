@@ -12,12 +12,6 @@ export function addAnimate(graph, el, attrs) {
     return
   }
   const animation = deepObjectMerge(graph.renderAttrs.animation, attrs.animation)
-  // const animation = {
-  //   delay: 0,
-  //   duration: 300,
-  //   useTween: false,
-  //   ...attrs.animation
-  // }
 
   const { from, middle, use, to, delay, duration, useTween, formatter = d => d } = animation
 
@@ -58,64 +52,6 @@ export function addAnimate(graph, el, attrs) {
 }
 
 /**
- * 为 spritejs 元素设置 诸如`normal` 、`hover`  style
- * 通过将 `style` 转换为 `states`
- * 使得开发可以直接通过 `el.attr('state', 'hover')` 来切换样式
- * @param {*} el
- * @param {*} attrs
- */
-export function addState(el, attrs) {
-  const normal = Object.create(null)
-  let cloneNode = null
-
-  let initialStates = { normal, ...(attrs.states || {}) }
-
-  delete attrs.states
-
-  let states = Object.keys(attrs).reduce((a, key) => {
-    if (!/\S+state$/i.test(key)) {
-      return a
-    }
-
-    let inputState = attrs[key]
-
-    if (!inputState || typeof inputState !== 'object') {
-      return a
-    }
-
-    const stateName = key.slice(0, -5)
-
-    if (!cloneNode) {
-      cloneNode = el.cloneNode()
-    }
-
-    cloneNode.attr(inputState)
-
-    const currentAttrs = cloneNode.attr()
-    Object.keys(inputState).forEach(k => {
-      inputState[k] = currentAttrs[k]
-    })
-
-    const originAttrs = Object.assign({}, el.attr(), attrs)
-
-    Object.keys(inputState).forEach(key => {
-      if (!(key in originAttrs)) {
-        console.warn(`Set invalid attribute '${key}' to ${el.nodeName}.`)
-        normal[key] = inputState[key]
-      } else {
-        normal[key] = originAttrs[key]
-      }
-    })
-
-    a[stateName] = inputState
-    delete attrs[key]
-    return a
-  }, initialStates)
-
-  el.attr({ state: 'normal', states })
-}
-
-/**
  * ref 回调函数
  * @param {*} el
  * @param {*} attrs
@@ -138,14 +74,18 @@ export function addRef(graph, el, attrs) {
  * @param {*} attrs
  */
 export function addEvent(graph, el, attrs = {}) {
+  graph.__cacheEvent = graph.__cacheEvent || {}
+  //缓存方法，修改方法指针this
   Object.keys(attrs).forEach(key => {
     if (!/^on/.test(key)) {
       return
     }
     const type = key.split('on')[1].toLowerCase()
     const cb = attrs[key] || (() => {})
-    el.removeEventListener(type, cb)
-    el.addEventListener(type, evt => cb.call(graph, evt, el))
+    let newF = evt => cb.call(graph, evt, el)
+    el.removeEventListener(type, graph.__cacheEvent[cb])
+    el.addEventListener(type, newF)
+    graph.__cacheEvent[cb] = newF
     delete attrs[key]
   })
 }
