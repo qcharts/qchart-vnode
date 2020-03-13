@@ -10,7 +10,6 @@ export function patchAttrs(graph, el, patche) {
     return
   }
   addRef(graph, el, patche)
-  //addState(el, patche)
   addEvent(graph, el, patche)
   el.attr(patche)
   addAnimate(graph, el, patche)
@@ -24,7 +23,7 @@ export function patchAttrs(graph, el, patche) {
 export default function patch($el, patche, isRoot = 0) {
   //core中调用patch的时候，base中处理绑定this到当前图表
   let graph = this //graph为当前的qcharts对象 visula或者plugin
-  if (!$el || !$el) {
+  if (!$el && !patche) {
     return
   }
   switch (patche.type) {
@@ -64,7 +63,13 @@ export default function patch($el, patche, isRoot = 0) {
         let len = children.length > $el.children.length ? children.length : $el.children.length
         for (let j = 0; j < len; j++) {
           let curNode = $el.children.filter(child => child._ind === j)[0]
-          patch.bind(graph)(curNode, children.filter(child => child._ind === j)[0], j)
+          let curVnode = children.filter(child => child._ind === j)[0]
+          if (curVnode && curVnode.type === 'CREATE') {
+            //如果是create需要传父级$el
+            patch.bind(graph)($el, curVnode, j)
+          } else {
+            patch.bind(graph)(curNode, curVnode, j)
+          }
         }
       }
       break
