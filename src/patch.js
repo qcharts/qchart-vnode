@@ -12,6 +12,7 @@ export function patchAttrs(graph, el, patche) {
   addRef(graph, el, patche)
   addEvent(graph, el, patche)
   el.attr(patche)
+  addState(el, patche)
   addAnimate(graph, el, patche)
 }
 

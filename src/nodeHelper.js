@@ -67,7 +67,21 @@ export function addRef(graph, el, attrs) {
     }
   }
 }
-
+/**
+ * 为 spritejs 元素添加事件
+ * @param {*} el
+ * @param {*} attrs
+ */
+export function addState(el, attrs = {}) {
+  let states = el.attr('states')
+  let state = el.attr('state')
+  if (states && state) {
+    let props = states[state]
+    el.attr(props)
+    delete attrs[state]
+  }
+  //缓存方法，修改方法指针this
+}
 /**
  * 为 spritejs 元素添加事件
  * @param {*} el
