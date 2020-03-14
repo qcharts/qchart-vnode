@@ -1,5 +1,5 @@
 import { Tween } from '../tween'
-import { deepObjectMerge } from '@qcharts/utils'
+import { deepObjectMerge, emptyObject } from '@qcharts/utils'
 import filterClone from 'filter-clone'
 
 /**
@@ -72,15 +72,23 @@ export function addRef(graph, el, attrs) {
  * @param {*} el
  * @param {*} attrs
  */
-export function addState(el, attrs = {}) {
-  let states = el.attr('states')
-  let state = el.attr('state')
+export function addAttrs(graph, el, attrs = {}) {
+  let states = attrs['states']
+  let state = attrs['state']
   if (states && state) {
-    let props = states[state]
-    el.attr(props)
-    delete attrs[state]
+    let oldState = el.attr('state')
+    if (state !== oldState) {
+      //不相当就处理，相当上一次已经处理完毕
+      let oldstates = el.attr('states') || emptyObject()
+      let oldAttrs = deepObjectMerge(emptyObject(), attrs, oldstates[oldState])
+      let newAttrs = deepObjectMerge(emptyObject(), attrs, states[state])
+      el.attr(oldAttrs)
+      let { duration } = graph.renderAttrs.animation
+      el.transition(duration / 1000).attr(newAttrs)
+    }
+  } else {
+    el.attr(attrs)
   }
-  //缓存方法，修改方法指针this
 }
 /**
  * 为 spritejs 元素添加事件
