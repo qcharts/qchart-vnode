@@ -83,7 +83,7 @@ export function addAttrs(graph, el, attrs = {}) {
       let oldAttrs = deepObjectMerge(emptyObject(), attrs, oldstates[oldState])
       let newAttrs = deepObjectMerge(emptyObject(), attrs, states[state])
       el.attr(oldAttrs)
-      let { duration } = graph.renderAttrs.animation
+      let { duration } = deepObjectMerge(emptyObject(), graph.renderAttrs.animation, states.animation)
       el.transition(duration / 1000).attr(newAttrs)
     }
   } else {
