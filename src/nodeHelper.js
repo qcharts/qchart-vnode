@@ -96,7 +96,6 @@ export function addAttrs(graph, el, attrs = {}) {
  * @param {*} attrs
  */
 export function addEvent(graph, el, attrs = {}) {
-  graph.__cacheEvent = graph.__cacheEvent || {}
   //缓存方法，修改方法指针this
   Object.keys(attrs).forEach(key => {
     if (!/^on/.test(key)) {
@@ -105,9 +104,8 @@ export function addEvent(graph, el, attrs = {}) {
     const type = key.split('on')[1].toLowerCase()
     const cb = attrs[key] || (() => {})
     let newF = evt => cb.call(graph, evt, el)
-    el.removeEventListener(type, graph.__cacheEvent[cb])
+    el.removeAllListeners(type)
     el.addEventListener(type, newF)
-    graph.__cacheEvent[cb] = newF
     delete attrs[key]
   })
 }
