@@ -67,9 +67,9 @@ export default function patch($el, patche, isRoot = 0) {
           let curVnode = children.filter(child => child._ind === j)[0]
           if (curVnode && curVnode.type === 'CREATE') {
             //如果是create需要传父级$el
-            patch.bind(graph)($el, curVnode, j)
+            patch.bind(graph)($el, curVnode)
           } else {
-            patch.bind(graph)(curNode, curVnode, j)
+            patch.bind(graph)(curNode, curVnode)
           }
         }
       }
