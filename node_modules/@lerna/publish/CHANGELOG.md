@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.1](https://github.com/lerna/lerna/compare/v3.22.0...v3.22.1) (2020-06-09)
+
+
+### Bug Fixes
+
+* Move [#2445](https://github.com/lerna/lerna/issues/2445) behind `--no-granular-pathspec` option ([b3da937](https://github.com/lerna/lerna/commit/b3da937a61199ac71ed44b184ed36ff131237165)), closes [#2598](https://github.com/lerna/lerna/issues/2598)
+
+
+
+
+
+# [3.22.0](https://github.com/lerna/lerna/compare/v3.21.0...v3.22.0) (2020-05-24)
+
+
+### Bug Fixes
+
+* **publish:** Avoid errors when files are ignored by git ([#2445](https://github.com/lerna/lerna/issues/2445)) ([448f2ae](https://github.com/lerna/lerna/commit/448f2aee7258febc15c131c1128688326a52778f)), closes [#2151](https://github.com/lerna/lerna/issues/2151)
+* **publish:** Avoid exception when publishing 1st version ([#2485](https://github.com/lerna/lerna/issues/2485)) ([5d80285](https://github.com/lerna/lerna/commit/5d802851d156e20e1bac4107e68b7280e078a51b))
+* **publish:** Support `--tag-version-prefix` in `--canary` mode ([#2435](https://github.com/lerna/lerna/issues/2435)) ([611c38e](https://github.com/lerna/lerna/commit/611c38edb07d18fc92a20ba44edab715519a203d))
+
+
+
+
+
+# [3.21.0](https://github.com/lerna/lerna/compare/v3.20.2...v3.21.0) (2020-05-13)
+
+
+### Bug Fixes
+
+* **publish:** Canary releases without previous tags should not explode ([c9eb590](https://github.com/lerna/lerna/commit/c9eb590bf867889a188598322bb4552db7a34dfc))
+
+
+### Features
+
+* **version:** Ignore private packages completely with `--no-private` ([a9b9f97](https://github.com/lerna/lerna/commit/a9b9f97457e4e4b0cac7f4ce562458d921a1f9be))
+
+
+
+
+
+## [3.20.2](https://github.com/lerna/lerna/compare/v3.20.1...v3.20.2) (2020-01-02)
+
+**Note:** Version bump only for package @lerna/publish
+
+
+
+
+
+## [3.20.1](https://github.com/lerna/lerna/compare/v3.20.0...v3.20.1) (2019-12-29)
+
+**Note:** Version bump only for package @lerna/publish
+
+
+
+
+
+# [3.20.0](https://github.com/lerna/lerna/compare/v3.19.0...v3.20.0) (2019-12-27)
+
+
+### Features
+
+* **publish:** Add `--legacy-auth` flag ([#2347](https://github.com/lerna/lerna/issues/2347)) ([0e9bda7](https://github.com/lerna/lerna/commit/0e9bda769d944e3f0b9218ec1ecfaf63273baf11))
+
+
+
+
+
 ## [3.18.5](https://github.com/lerna/lerna/compare/v3.18.4...v3.18.5) (2019-11-20)
 
 

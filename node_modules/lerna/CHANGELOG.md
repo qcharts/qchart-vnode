@@ -3,6 +3,57 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.1](https://github.com/lerna/lerna/compare/v3.22.0...v3.22.1) (2020-06-09)
+
+**Note:** Version bump only for package lerna
+
+
+
+
+
+# [3.22.0](https://github.com/lerna/lerna/compare/v3.21.0...v3.22.0) (2020-05-24)
+
+**Note:** Version bump only for package lerna
+
+
+
+
+
+# [3.21.0](https://github.com/lerna/lerna/compare/v3.20.2...v3.21.0) (2020-05-13)
+
+**Note:** Version bump only for package lerna
+
+
+
+
+
+## [3.20.2](https://github.com/lerna/lerna/compare/v3.20.1...v3.20.2) (2020-01-02)
+
+**Note:** Version bump only for package lerna
+
+
+
+
+
+## [3.20.1](https://github.com/lerna/lerna/compare/v3.20.0...v3.20.1) (2019-12-29)
+
+**Note:** Version bump only for package lerna
+
+
+
+
+
+# [3.20.0](https://github.com/lerna/lerna/compare/v3.19.0...v3.20.0) (2019-12-27)
+
+
+### Features
+
+* **cli:** Add new `info` command to output information about local environment ([#2106](https://github.com/lerna/lerna/issues/2106)) ([7abfe43](https://github.com/lerna/lerna/commit/7abfe43426197fbc7f18c44b0c994324609fc769))
+
+
+
+
+
 # [3.19.0](https://github.com/lerna/lerna/compare/v3.18.5...v3.19.0) (2019-11-20)
 
 **Note:** Version bump only for package lerna

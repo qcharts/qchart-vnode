@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.22.1](https://github.com/lerna/lerna/compare/v3.22.0...v3.22.1) (2020-06-09)
+
+
+### Bug Fixes
+
+* Move [#2445](https://github.com/lerna/lerna/issues/2445) behind `--no-granular-pathspec` option ([b3da937](https://github.com/lerna/lerna/commit/b3da937a61199ac71ed44b184ed36ff131237165)), closes [#2598](https://github.com/lerna/lerna/issues/2598)
+
+
+
+
+
+# [3.22.0](https://github.com/lerna/lerna/compare/v3.21.0...v3.22.0) (2020-05-24)
+
+
+### Bug Fixes
+
+* **conventional-commits:**  Support modern config builder functions ([#2546](https://github.com/lerna/lerna/issues/2546)) ([7ffb297](https://github.com/lerna/lerna/commit/7ffb297b5cab910f58153cd9decd1f3b58b0c4ed)), closes [#2138](https://github.com/lerna/lerna/issues/2138)
+* **publish:** Avoid errors when files are ignored by git ([#2445](https://github.com/lerna/lerna/issues/2445)) ([448f2ae](https://github.com/lerna/lerna/commit/448f2aee7258febc15c131c1128688326a52778f)), closes [#2151](https://github.com/lerna/lerna/issues/2151)
+* **version:** `--atomic` fallback when `GIT_REDIRECT_STDERR` is enabled ([#2467](https://github.com/lerna/lerna/issues/2467)) ([c255d12](https://github.com/lerna/lerna/commit/c255d1242e3c21f432fac1e484a4e71ad50ed71f))
+
+
+### Features
+
+* **version:** add `--force-git-tag` option ([#2594](https://github.com/lerna/lerna/issues/2594)) ([00738e9](https://github.com/lerna/lerna/commit/00738e9ab2a9f3b5656419205bd7ddb1669e4193))
+
+
+
+
+
+# [3.21.0](https://github.com/lerna/lerna/compare/v3.20.2...v3.21.0) (2020-05-13)
+
+
+### Features
+
+* **version:** Ignore private packages completely with `--no-private` ([a9b9f97](https://github.com/lerna/lerna/commit/a9b9f97457e4e4b0cac7f4ce562458d921a1f9be))
+
+
+
+
+
+## [3.20.2](https://github.com/lerna/lerna/compare/v3.20.1...v3.20.2) (2020-01-02)
+
+
+### Bug Fixes
+
+* **version:** Loosen `--atomic` fallback to catch incompatible CLI versions ([6f0e2bb](https://github.com/lerna/lerna/commit/6f0e2bb1b033b0579910cedcf0be84f1474c1580)), closes [#2400](https://github.com/lerna/lerna/issues/2400)
+
+
+
+
+
+## [3.20.1](https://github.com/lerna/lerna/compare/v3.20.0...v3.20.1) (2019-12-29)
+
+
+### Bug Fixes
+
+* **version:** Support git clients that do not support `git push --atomic` ([2b9b210](https://github.com/lerna/lerna/commit/2b9b210c0b6ac69853ffb01f0dbac9109ab419c5))
+
+
+
+
+
+# [3.20.0](https://github.com/lerna/lerna/compare/v3.19.0...v3.20.0) (2019-12-27)
+
+
+### Bug Fixes
+
+* **version:** pass `--atomic` to `git push` ([#2393](https://github.com/lerna/lerna/issues/2393)) ([ec0f92a](https://github.com/lerna/lerna/commit/ec0f92aac03cea27168d3982601f40b863943a3c)), closes [#2392](https://github.com/lerna/lerna/issues/2392)
+
+
+
+
+
 ## [3.18.5](https://github.com/lerna/lerna/compare/v3.18.4...v3.18.5) (2019-11-20)
 
 

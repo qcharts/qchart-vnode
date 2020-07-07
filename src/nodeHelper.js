@@ -18,7 +18,10 @@ export function addAnimate(graph, el, attrs) {
   if (!from || !to || !use) {
     return
   }
-
+  if (from) {
+    //如果存在from，一开始就设置，防止出现抖动
+    el.attr(from)
+  }
   let ani = filterClone(animation, null, ['from', 'to', 'formatter', 'use'])
 
   const setAnimation = () => {
