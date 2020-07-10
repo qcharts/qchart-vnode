@@ -13,7 +13,7 @@ export function addAnimate(graph, el, attrs) {
   }
   const animation = deepObjectMerge(graph.renderAttrs.animation, attrs.animation)
 
-  const { from, middle, use, to, delay, duration, useTween, formatter = d => d } = animation
+  const { from, middle, use, to, delay, duration, useTween, easing, formatter = d => d } = animation
 
   if (!from || !to || !use) {
     return
@@ -40,7 +40,7 @@ export function addAnimate(graph, el, attrs) {
         el.attr(to)
       })
     } else {
-      new Tween()
+      new Tween(easing)
         .from(from)
         .to(to)
         .delay(delay)

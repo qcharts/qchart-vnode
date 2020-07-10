@@ -1,4 +1,5 @@
 import h from './h'
 import diff from './diff'
 import patch from './patch'
-export { h, diff, patch }
+import { easing } from '../tween'
+export { h, diff, patch, easing }
