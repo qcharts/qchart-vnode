@@ -6,14 +6,11 @@ export function createElement(vnode) {
   //当前图形通过绑定this传递进来
   let graph = this
   let { tagName: TagName, attrs, children } = vnode
-  const el = new TagName()
+  const el = new TagName(attrs)
   //渲染的spritejs对象放到 visual或者plugin上
   patchAttrs(graph, el, attrs)
   if (el.appendChild) {
-    children
-      .map(createElement.bind(this))
-      .filter(Boolean)
-      .forEach(el.appendChild.bind(el))
+    children.map(createElement.bind(this)).filter(Boolean).forEach(el.appendChild.bind(el))
   }
   return el
 }
