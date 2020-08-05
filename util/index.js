@@ -5,9 +5,11 @@ function now() {
   return typeof performance !== 'undefined' ? performance.now() : Date.now()
 }
 
-let requestAnimationFrame = window && window.requestAnimationFrame
-let cancelAnimationFrame = window && window.cancelAnimationFrame
-if (!requestAnimationFrame) {
+let requestAnimationFrame, cancelAnimationFrame
+if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+  requestAnimationFrame = window.requestAnimationFrame
+  cancelAnimationFrame = window.cancelAnimationFrame
+} else {
   const startTime = now()
   requestAnimationFrame = (fn) => {
     return setTimeout(() => {
