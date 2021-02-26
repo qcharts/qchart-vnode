@@ -104,11 +104,47 @@ export function addEvent(graph, el, attrs = {}) {
     if (!/^on/.test(key)) {
       return
     }
-    const type = key.split('on')[1].toLowerCase()
-    const cb = attrs[key] || (() => {})
-    let newF = evt => cb.call(graph, evt, el)
-    el.removeAllListeners(type)
-    el.addEventListener(type, newF)
+    if (key === 'onMouseEvent') {
+      //单独处理dataset事件
+      let params = attrs[key]
+      let [types, ...funcparams] = params
+      let arrType = types.split(',')
+      arrType.forEach(type => {
+        let newF = getFunction(delegateFunc, graph, el, 'dateset-' + type, funcparams)
+        el.removeEventListener(type, newF)
+        el.addEventListener(type, newF)
+      })
+    } else {
+      const type = key.split('on')[1].toLowerCase()
+      const cb = attrs[key] || (() => {})
+      let newF = getFunction(cb, graph, el, 'change-' + type)
+      el.removeEventListener(type, newF)
+      el.addEventListener(type, newF)
+    }
     delete attrs[key]
   })
+}
+// 存储回调函数
+const cbFuncs = new WeakMap()
+function getFunction(...params) {
+  let [cb, graph, el, type, ...param] = params
+  let elEvents = cbFuncs.get(el)
+  if (!elEvents) {
+    elEvents = new Map()
+    cbFuncs.set(el, elEvents)
+  }
+  let resFunc = elEvents.get(type)
+  if (resFunc) {
+    return resFunc
+  } else {
+    resFunc = evt => cb.call(graph, evt, el, type, param)
+    elEvents.set(type, resFunc)
+    return resFunc
+  }
+}
+function delegateFunc(evt, el, type, params) {
+  let dataset = this.dataset
+  let [data, ind] = params[0]
+  let newType = type.split('-')[1]
+  dataset.dispatchEvent('mouseEvent', { evt, el, name: newType, data, index: ind })
 }
